@@ -8,36 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-.fab-ai {
-  position: fixed;
-  bottom: 26px;
-  right: 24px;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f5de9f, #b9913b);
-  color: #fff;
-  font-size: 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,.25);
-  cursor: pointer;
-  z-index: 9999;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.fab-ai:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,.35);
-}
-
-.fab-ai:active {
-  transform: scale(.92);
-}
-
-
   :root{
     --paper:#fbf7ef;
     --ivory:#fffdf7;
@@ -57,6 +27,7 @@
     margin:0; padding:20px;
     background:var(--paper);
     overflow-y:scroll; scrollbar-width:none; -ms-overflow-style:none;
+    padding-bottom: 150px; /* เพิ่มพื้นที่ด้านล่างไม่ให้ปุ่มบังเนื้อหา */
   }
   body::-webkit-scrollbar{ display:none; }
 
@@ -68,7 +39,7 @@
     border-radius:8px;
   }
   
-  /* --- เพิ่มส่วน CSS สำหรับช่องค้นหา --- */
+  /* --- ส่วน CSS สำหรับช่องค้นหา --- */
   .search-container {
     max-width: 980px;
     margin: 0 auto 20px;
@@ -140,6 +111,175 @@
 
   .title{ font-weight:700; font-size:1em; margin:0; z-index:1; }
   .desc{ font-size:.9em; color:#444; margin:0; z-index:1; }
+  
+  .tile {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9em;
+  }
+
+  /* --- ปุ่ม Floating Action Button --- */
+  .fab-container {
+    position: fixed;
+    bottom: 26px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* ระยะห่างระหว่างปุ่ม */
+    z-index: 9999;
+  }
+
+  /* ปุ่ม AI เดิม */
+  .fab-ai {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5de9f, #b9913b);
+    color: #fff;
+    font-size: 20px; /* ลดขนาด font นิดหน่อยให้คำว่า ai สวย */
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .fab-ai:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.35);
+  }
+
+  .fab-ai:active {
+    transform: scale(.92);
+  }
+
+  /* ปุ่มเช็คชื่อใหม่ */
+  .fab-checkin {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff, #f5de9f);
+    border: 2px solid #b9913b;
+    color: #b9913b;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,.2);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+    position: relative;
+  }
+  
+  .fab-checkin:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.3);
+  }
+  
+  .fab-checkin:active {
+    transform: scale(.92);
+  }
+
+  /* Badge เลขจำนวนวัน */
+  .checkin-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* --- Modal Styles (Custom Alert) --- */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(2px);
+  }
+
+  .modal-content {
+    background: var(--ivory);
+    padding: 30px;
+    border-radius: var(--radius);
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: var(--shadow-2);
+    border: 1px solid #e0bf6a;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .modal-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .modal-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--gold3);
+  }
+
+  .modal-message {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .modal-btn {
+    background: linear-gradient(135deg, #f5de9f, #b9913b);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+    box-shadow: 0 4px 10px rgba(185, 145, 59, 0.3);
+  }
+
+  .modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(185, 145, 59, 0.4);
+  }
+
+  /* Reward Box Style */
+  .reward-box {
+    background: #fff;
+    border: 2px dashed #b9913b;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #d35400;
+    font-size: 1.1em;
+    display: none; /* ซ่อนไว้ก่อน */
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
 </style>
 </head>
 <body>
@@ -149,6 +289,7 @@
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="🔎 ค้นหาบทสวดมนต์...">
 </div>
+
 <div class="cards">
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%97%E0%B8%B3%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%8A%E0%B8%B2%E0%B8%97%E0%B8%B3%E0%B8%A7%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%A2%E0%B8%99" target="_blank"><span class="title">ทำวัตรเช้า–เย็น</span><p class="desc">บทสวดประจำวันเช้าและเย็น เพื่อระลึกถึงพระรัตนตรัย</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%8A%E0%B8%A1%E0%B8%99%E0%B8%A1%E0%B9%80%E0%B8%97%E0%B8%A7%E0%B8%94%E0%B8%B2" target="_blank"><span class="title">ชุมนุมเทวดา</span><p class="desc">การน้อมเชิญเทวดามาร่วมฟังธรรมและอนุโมทนา</p><i class="ornament"></i></a>
@@ -160,7 +301,7 @@
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%84%E0%B8%B3%E0%B8%81%E0%B8%A5%E0%B8%B2%E0%B8%A7-%E0%B8%81%E0%B8%90%E0%B8%99" target="_blank"><span class="title">บทคำกล่าวกฐิน</span><p class="desc">คำกล่าวถวายผ้ากฐินตามประเพณี</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%9B%E0%B8%A3%E0%B8%A7%E0%B8%B2%E0%B8%AA%E0%B8%81%E0%B8%A3%E0%B8%A3%E0%B8%A1" target="_blank"><span class="title">บทปริวาสกรรม</span><p class="desc">พิธีปริวาสกรรมเพื่อชำระอาบัติ</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%84%E0%B8%B3%E0%B8%AA%E0%B8%A1%E0%B8%B2%E0%B8%97%E0%B8%B2%E0%B8%99%E0%B8%98%E0%B8%94%E0%B8%87%E0%B8%94" target="_blank"><span class="title">บทคำสมาทานธุดงค์</span><p class="desc">คำกล่าวสมาทานข้อวัตรธุดงค์</p><i class="ornament"></i></a>
-  <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%AB%E0%B8%A5%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%9A%E0%B8%8D" target="_blank"><span class="title">บทหลักการทำบุญ</span><p class="desc">คำอธิบายการทำบุญด้วยทาน ศีล ภาวนา</p><i class="ornament"></i></a>
+  <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%AB%E0%B8%A5%E0%B8%81%E0%B8%81%E0%B8%B2%E0%B8%A7%E0%B8%97%E0%B8%B3%E0%B8%9A%E0%B8%8D" target="_blank"><span class="title">บทหลักการทำบุญ</span><p class="desc">คำอธิบายการทำบุญด้วยทาน ศีล ภาวนา</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%9E%E0%B8%98%E0%B8%A3%E0%B8%81%E0%B8%A9%E0%B8%B2%E0%B8%AD%E0%B9%82%E0%B8%9A%E0%B8%AA%E0%B8%96%E0%B8%A8%E0%B8%A5" target="_blank"><span class="title">บทพิธีรักษาอุโบสถศีล</span><p class="desc">คำกล่าวสมาทานศีลในวันพระ</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%AD%E0%B8%A0%E0%B8%98%E0%B8%A1%E0%B8%A1%E0%B8%95%E0%B8%AA%E0%B8%87%E0%B8%84%E0%B8%AB%E0%B8%B0" target="_blank"><span class="title">บทพระอภิธัมมัตสังคหะ</span><p class="desc">รวบรวมสาระสำคัญของพระอภิธรรม</p><i class="ornament"></i></a>
   <a class="card" href="https://sites.google.com/view/monpitee/%E0%B8%A0%E0%B8%81%E0%B8%82%E0%B8%9B%E0%B8%B2%E0%B8%8F%E0%B9%82%E0%B8%A1%E0%B8%81%E0%B8%82" target="_blank"><span class="title">ภิกขุปาฏิโมกข</span><p class="desc">ข้อวัตรปฏิบัติและพระวินัยของสงฆ์</p><i class="ornament"></i></a>
@@ -169,13 +310,43 @@
 <br>
 <br>
 
-<a    class="tile"  href="https://sites.google.com/view/privacy-policy-pdpa-crow-studi/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81" target="_blank"> <div class="title">นโยบายส่วนตัว Privacy policy
-</div>  </a>
-    </div>
+<a class="tile" href="https://sites.google.com/view/privacy-policy-pdpa-crow-studi/%E0%B8%AB%E0%B8%99%E0%B8%B2%E0%B9%81%E0%B8%A3%E0%B8%81" target="_blank"> 
+  <div class="title">นโยบายส่วนตัว Privacy policy</div> 
+</a>
+
+<!-- Container สำหรับปุ่มด้านล่างขวา -->
+<div class="fab-container">
+  <!-- ปุ่ม Check-in รายวัน -->
+  <div class="fab-checkin" onclick="dailyCheckIn()">
+    📅
+    <!-- Badge แสดงจำนวนวัน -->
+    <span class="checkin-badge" id="checkinCount">0</span>
+  </div>
+
+  <!-- ปุ่ม AI เดิม -->
+  <div class="fab-ai" onclick="openAIAssistant()">
+     ai
+  </div>
 </div>
-<br>
+
+<!-- Modal แจ้งเตือน (แทน Alert) -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <span class="modal-icon" id="modalIcon">✨</span>
+    <div class="modal-title" id="modalTitle">หัวข้อ</div>
+    <div class="modal-message" id="modalMessage">ข้อความแจ้งเตือน</div>
+    
+    <!-- กล่องรางวัลลับ -->
+    <div class="reward-box" id="rewardBox">
+      CODE: DHAMMA100
+    </div>
+
+    <button class="modal-btn" onclick="closeModal()">ตกลง</button>
+  </div>
+</div>
 
 <script>
+// --- Search Function ---
 document.getElementById('searchInput').addEventListener('keyup', function() {
   let filter = this.value.toLowerCase();
   let cards = document.querySelectorAll('.cards .card');
@@ -190,13 +361,71 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
     }
   });
 });
-</script>
-<div class="fab-ai" onclick="openAIAssistant()">
-   ai
-</div>
-<script>
+
+// --- AI Button Function ---
 function openAIAssistant() {
   window.open("ai.html", "_blank");
+}
+
+// --- Daily Check-in Logic ---
+const CHECKIN_KEY_DATE = 'lastCheckInDate';
+const CHECKIN_KEY_COUNT = 'checkInCount';
+
+// อัปเดตตัวเลขบนปุ่มเมื่อโหลดหน้าเว็บ
+window.addEventListener('load', function() {
+    updateBadge();
+});
+
+function updateBadge() {
+    const count = localStorage.getItem(CHECKIN_KEY_COUNT) || 0;
+    document.getElementById('checkinCount').innerText = count;
+}
+
+function dailyCheckIn() {
+    const today = new Date().toLocaleDateString('th-TH'); // ใช้วันที่แบบไทย
+    const lastCheckIn = localStorage.getItem(CHECKIN_KEY_DATE);
+    let count = parseInt(localStorage.getItem(CHECKIN_KEY_COUNT) || 0);
+
+    // กรณีเช็คชื่อไปแล้วในวันนี้ ให้แสดงรายละเอียดสถิติ
+    if (lastCheckIn === today) {
+        showModal('📊 สถิติการเช็คชื่อ', `วันนี้คุณเช็คชื่อเรียบร้อยแล้ว<br><br>ยอดสะสมทั้งหมด: <span style="font-size:1.5em; color:#b9913b; font-weight:bold;">${count}</span> วัน<br><br><small style="color:#888">กลับมาสะสมต่อพรุ่งนี้นะครับ เมื่อสะสม ครบ 200 วัน รับ code ลบโฆษณาถาวรฟรี</small>`, '📅');
+        return;
+    }
+
+    // กรณีเช็คชื่อสำเร็จ
+    count++;
+    localStorage.setItem(CHECKIN_KEY_DATE, today);
+    localStorage.setItem(CHECKIN_KEY_COUNT, count);
+    
+    updateBadge();
+
+    // เช็คเงื่อนไขรางวัล 100 วัน
+    if (count === 100) {
+        showModal('🎉 ยินดีด้วย!', 'คุณเช็คชื่อครบ 100 วันแล้ว!<br>นี่คือรางวัลความเพียรของคุณครับ', 'nocrodell', true);
+    } else {
+        showModal('✅ เช็คชื่อสำเร็จ', `สะสมครบ ${count} วันแล้ว<br>อนุโมทนาบุญครับ`, '🙏');
+    }
+}
+
+// --- Modal Helper Functions ---
+function showModal(title, message, icon, isReward = false) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalMessage').innerHTML = message;
+    document.getElementById('modalIcon').innerText = icon;
+    
+    const rewardBox = document.getElementById('rewardBox');
+    if (isReward) {
+        rewardBox.style.display = 'block';
+    } else {
+        rewardBox.style.display = 'none';
+    }
+
+    const modal = document.getElementById('modalOverlay');
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
 }
 </script>
 
