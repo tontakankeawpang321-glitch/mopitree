@@ -275,9 +275,124 @@
     display: none; /* ซ่อนไว้ก่อน */
   }
 
+  /* --- Chatbox Styles (สำหรับ Cloudflare Worker) --- */
+  .chat-container {
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      width: 350px;
+      height: 500px;
+      background: var(--ivory);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-2);
+      display: none; /* ซ่อนไว้ก่อน */
+      flex-direction: column;
+      border: 1px solid #e0bf6a;
+      z-index: 9998;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+  }
+  
+  @media (max-width: 480px) {
+      .chat-container {
+          width: 90%;
+          right: 5%;
+          bottom: 110px;
+          height: 60vh;
+      }
+  }
+
+  .chat-header {
+      background: linear-gradient(135deg, #f5de9f, #b9913b);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+  }
+
+  .chat-close {
+      cursor: pointer;
+      font-size: 20px;
+      opacity: 0.8;
+  }
+  .chat-close:hover { opacity: 1; }
+
+  .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #fafafa;
+  }
+
+  .message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      font-size: 0.95em;
+      line-height: 1.4;
+      word-wrap: break-word;
+  }
+
+  .message.user {
+      align-self: flex-end;
+      background: #e0bf6a;
+      color: #fff;
+      border-bottom-right-radius: 2px;
+  }
+
+  .message.bot {
+      align-self: flex-start;
+      background: #fff;
+      border: 1px solid #eee;
+      color: #333;
+      border-bottom-left-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .chat-input-area {
+      padding: 10px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+      background: #fff;
+  }
+
+  #chatInput {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+      font-family: inherit;
+  }
+
+  #sendBtn {
+      background: var(--gold3);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.2s;
+  }
+  #sendBtn:hover { background: #a07a2a; }
+
   @keyframes popIn {
     from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
   }
 
 </style>
@@ -323,10 +438,25 @@
     <span class="checkin-badge" id="checkinCount">0</span>
   </div>
 
-  <!-- ปุ่ม AI เดิม -->
-  <div class="fab-ai" onclick="openAIAssistant()">
+  <!-- ปุ่ม AI เดิม (แก้ไขให้เปิดแชท) -->
+  <div class="fab-ai" onclick="toggleChat()">
      ai
   </div>
+</div>
+
+<!-- หน้าต่างแชท (Chat Window) -->
+<div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+        <span>🤖 AI Assistant</span>
+        <span class="chat-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="message bot">สวัสดีครับ มีข้อธรรมะเรื่องไหนอยากสอบถามไหมครับ? 🙏</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="พิมพ์ข้อความ..." onkeypress="handleKeyPress(event)">
+        <button id="sendBtn" onclick="sendMessage()">➤</button>
+    </div>
 </div>
 
 <!-- Modal แจ้งเตือน (แทน Alert) -->
@@ -362,9 +492,82 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
   });
 });
 
-// --- AI Button Function ---
-function openAIAssistant() {
-  window.open("ai.html", "_blank");
+// --- AI Chat Functions (เชื่อม Cloudflare Worker) ---
+function toggleChat() {
+    const chat = document.getElementById('chatContainer');
+    if (chat.style.display === 'flex') {
+        chat.style.display = 'none';
+    } else {
+        chat.style.display = 'flex';
+        document.getElementById('chatInput').focus();
+    }
+}
+
+function handleKeyPress(e) {
+    if (e.key === 'Enter') sendMessage();
+}
+
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    // 1. แสดงข้อความผู้ใช้
+    addMessage(message, 'user');
+    input.value = '';
+
+    // 2. แสดงสถานะกำลังคิด
+    const loadingId = addMessage('กำลังคิด...', 'bot', true);
+
+    // 3. เรียก Cloudflare Worker
+    try {
+        // TODO: ใส่ URL ของ Cloudflare Worker ของคุณที่นี่
+        const WORKER_URL = 'YOUR_CLOUDFLARE_WORKER_URL_HERE'; 
+        
+        if (WORKER_URL === 'YOUR_CLOUDFLARE_WORKER_URL_HERE') {
+            // จำลองการทำงานหากยังไม่ได้ใส่ URL
+            await new Promise(r => setTimeout(r, 1000));
+            updateMessage(loadingId, 'ระบบพร้อมทำงานแล้วครับ! แต่คุณต้องใส่ URL ของ Cloudflare Worker ในโค้ดก่อนใช้งานจริงนะ (บรรทัด ~370)');
+            return;
+        }
+
+        const response = await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message }) // ปรับ payload ตามที่ Worker คุณต้องการ
+        });
+
+        if (!response.ok) throw new Error('API Error');
+
+        const data = await response.json();
+        // ปรับ key ตาม response จริง เช่น data.reply, data.response, data.result
+        const reply = data.reply || JSON.stringify(data); 
+
+        updateMessage(loadingId, reply);
+
+    } catch (error) {
+        console.error('Chat Error:', error);
+        updateMessage(loadingId, 'ขออภัย เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
+    }
+}
+
+function addMessage(text, sender, isLoading = false) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = `message ${sender}`;
+    div.innerText = text;
+    if (isLoading) div.id = 'loading-' + Date.now();
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return div.id;
+}
+
+function updateMessage(id, text) {
+    const msg = document.getElementById(id);
+    if (msg) {
+        msg.innerText = text;
+        msg.removeAttribute('id'); // ลบ ID loading ออก
+    }
 }
 
 // --- Daily Check-in Logic ---
