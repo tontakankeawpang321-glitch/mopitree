@@ -522,9 +522,9 @@ async function sendMessage() {
     // 3. เรียก Cloudflare Worker
     try {
         // TODO: ใส่ URL ของ Cloudflare Worker ของคุณที่นี่
-        const WORKER_URL = 'YOUR_CLOUDFLARE_WORKER_URL_HERE'; 
+        const WORKER_URL = 'https://spring-bush-acec.tontakankeawpang321.workers.dev/'; 
         
-        if (WORKER_URL === 'YOUR_CLOUDFLARE_WORKER_URL_HERE') {
+        if (WORKER_URL === 'https://spring-bush-acec.tontakankeawpang321.workers.dev/') {
             // จำลองการทำงานหากยังไม่ได้ใส่ URL
             await new Promise(r => setTimeout(r, 1000));
             updateMessage(loadingId, 'ระบบพร้อมทำงานแล้วครับ! แต่คุณต้องใส่ URL ของ Cloudflare Worker ในโค้ดก่อนใช้งานจริงนะ (บรรทัด ~370)');
