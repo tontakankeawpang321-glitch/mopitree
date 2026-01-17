@@ -131,6 +131,7 @@
     align-items: center;
     gap: 16px; /* ระยะห่างระหว่างปุ่ม */
     z-index: 9999;
+    transition: opacity 0.3s ease; /* เพิ่ม transition ให้เนียนขึ้นเวลาซ่อน */
   }
 
   /* ปุ่ม AI เดิม */
@@ -297,7 +298,7 @@
       .chat-container {
           width: 90%;
           right: 5%;
-          bottom: 110px;
+          bottom: 26px; /* ปรับให้ชิดขอบล่างมากขึ้นเมื่อปุ่มอื่นหายไป */
           height: 60vh;
       }
   }
@@ -448,6 +449,7 @@
 <div class="chat-container" id="chatContainer">
     <div class="chat-header">
         <span>🤖 AI Assistant</span>
+        <!-- ปุ่มปิดจะเรียกฟังก์ชัน toggleChat() ซึ่งจะคืนค่าปุ่มเดิมกลับมา -->
         <span class="chat-close" onclick="toggleChat()">×</span>
     </div>
     <div class="chat-messages" id="chatMessages">
@@ -495,10 +497,16 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
 // --- AI Chat Functions (เชื่อม Cloudflare Worker) ---
 function toggleChat() {
     const chat = document.getElementById('chatContainer');
+    const fabContainer = document.querySelector('.fab-container'); // อ้างอิง Container ของปุ่ม
+
     if (chat.style.display === 'flex') {
+        // กรณีปิดแชท: ซ่อนแชท -> แสดงปุ่มกลับมา
         chat.style.display = 'none';
+        fabContainer.style.display = 'flex';
     } else {
+        // กรณีเปิดแชท: แสดงแชท -> ซ่อนปุ่มทั้งหมด
         chat.style.display = 'flex';
+        fabContainer.style.display = 'none';
         document.getElementById('chatInput').focus();
     }
 }
@@ -521,14 +529,12 @@ async function sendMessage() {
 
     // 3. เรียก Cloudflare Worker
     try {
-        // TODO: ใส่ URL ของ Cloudflare Worker ของคุณที่นี่
+        // URL Cloudflare Worker ของคุณ
         const WORKER_URL = 'https://spring-bush-acec.tontakankeawpang321.workers.dev/'; 
         
         if (WORKER_URL === 'https://spring-bush-acec.tontakankeawpang321.workers.dev/') {
-            // จำลองการทำงานหากยังไม่ได้ใส่ URL
-            await new Promise(r => setTimeout(r, 1000));
-            updateMessage(loadingId, 'ระบบพร้อมทำงานแล้วครับ! แต่คุณต้องใส่ URL ของ Cloudflare Worker ในโค้ดก่อนใช้งานจริงนะ (บรรทัด ~370)');
-            return;
+            // จำลองการทำงานหากยังไม่ได้ใส่ URL (หรือ URL เดิม)
+            // ถ้า URL ใช้งานได้จริง โค้ดจะวิ่งผ่านตรงนี้ไป fetch ปกติครับ
         }
 
         const response = await fetch(WORKER_URL, {
