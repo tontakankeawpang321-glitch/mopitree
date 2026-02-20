@@ -1,7 +1,8 @@
 <html lang="th"><head>
+<html lang="th"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ebook Maker Pro (Secure Export Edition)</title>
+<title>Ebook Maker Pro (Fix Save Edition)</title>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400&amp;family=Chakra+Petch:wght@300;400&amp;family=Itim&amp;family=Kanit:wght@300;400&amp;family=Krub:wght@300;400&amp;family=Mali:wght@300;400&amp;family=Niramit:wght@300;400&amp;family=Pattaya&amp;family=Pridi:wght@300;400&amp;family=Prompt:wght@300;400&amp;family=Sarabun:wght@300;400&amp;family=Sriracha&amp;family=Taviraj:wght@300;400&amp;family=Trirong:wght@300;400&amp;family=Kodchasan:wght@400;600;700&amp;display=swap" rel="stylesheet">
 <!-- JSZip for Exporting -->
@@ -69,7 +70,7 @@ button, select{
 .add-page-btn{background:#FF9800;color:#fff}
 body.light .control-btn{background:#ddd;color:#111; border-color:#ccc;}
 
-/* Slider (Default Horizontal) */
+/* Slider (Horizontal by default) */
 .slider{
   display:flex;
   height:100vh;
@@ -83,10 +84,10 @@ body.light .control-btn{background:#ddd;color:#111; border-color:#ccc;}
   min-width:100vw;
   height:100vh;
   padding:0;
+  /* Use Flexbox with margin:auto for smart centering */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-  overflow: auto; 
+  overflow: auto; /* Allow scrolling inside slide when zoomed */
   scroll-snap-align:start;
   position: relative;
 }
@@ -118,13 +119,15 @@ body.vertical-read .nav {
 /* Standard Slide Content */
 .slide-content {
     width: 100%;
-    margin: 0 auto; 
+    /* Key fix: margin auto centers it, but allows expansion */
+    margin: auto; 
     padding: 60px 0 100px 0; 
-    transform-origin: top center; 
     position: relative; 
+    flex-shrink: 0; /* Prevent shrinking in flex container */
+    text-align: center; /* Center inline content like tri8 */
 }
 
-/* Delete Page Button Style (Slide) */
+/* Delete Page Button Style */
 .delete-page-btn {
     position: absolute;
     top: 65px; 
@@ -151,7 +154,7 @@ body.vertical-read .nav {
 .img-wrapper { position: relative; width: 100%; margin: 0; padding: 0; display: block; }
 .slide img { 
     display: block; 
-    width: 100%; 
+    width: 100%; /* Fit width */
     height: auto; 
     margin: 0 auto; 
     object-fit: contain; 
@@ -170,8 +173,7 @@ body.light .page-control{background:#eee}
 .page-control input[type=range]{ width:150px; margin-top: 5px; }
 
 /* TOC */
-/* Update: Max-width 85vw for mobile safety */
-.toc{ position:fixed; top:52px; left:0; width:260px; max-width: 85vw; height:calc(100% - 52px); background:#1b1b1b; overflow-y:auto; transform:translateX(-100%); transition:transform 0.3s ease-in-out; padding:15px; z-index:150; box-shadow: 2px 0 5px rgba(0,0,0,0.5); }
+.toc{ position:fixed; top:52px; left:0; width:260px; height:calc(100% - 52px); background:#1b1b1b; overflow-y:auto; transform:translateX(-100%); transition:transform 0.3s ease-in-out; padding:15px; z-index:150; box-shadow: 2px 0 5px rgba(0,0,0,0.5); }
 body.light .toc{background:#f5f5f5}
 .toc.show{ transform:translateX(0); }
 .toc-item-wrapper { display: flex; align-items: center; margin-bottom: 5px; padding: 2px; border-radius: 6px; }
@@ -340,7 +342,7 @@ canvas#cropCanvas { display: block; cursor: crosshair; }
     <button class="control-btn" onclick="fontSize(1)">A+</button>
     <button class="control-btn" onclick="fontSize(-1)">A-</button>
     
-    <select id="pageSelect" onchange="window.location.hash = '#slide-' + this.value" class="control-btn" style="max-width: 70px;"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option><option value="4">5</option><option value="5">6</option><option value="6">7</option><option value="7">8</option><option value="8">9</option><option value="9">10</option><option value="10">11</option><option value="11">12</option><option value="12">13</option><option value="13">14</option><option value="14">15</option><option value="15">16</option><option value="16">17</option><option value="17">18</option><option value="18">19</option><option value="19">20</option><option value="20">21</option><option value="21">22</option><option value="22">23</option><option value="23">24</option><option value="24">25</option><option value="25">26</option><option value="26">27</option><option value="27">28</option><option value="28">29</option><option value="29">30</option><option value="30">31</option><option value="31">32</option><option value="32">33</option><option value="33">34</option><option value="34">35</option><option value="35">36</option><option value="36">37</option><option value="37">38</option><option value="38">39</option><option value="39">40</option><option value="40">41</option><option value="41">42</option><option value="42">43</option><option value="43">44</option><option value="44">45</option><option value="45">46</option><option value="46">47</option><option value="47">48</option><option value="48">49</option><option value="49">50</option><option value="50">51</option><option value="51">52</option><option value="52">53</option><option value="53">54</option><option value="54">55</option><option value="55">56</option><option value="56">57</option><option value="57">58</option><option value="58">59</option><option value="59">60</option><option value="60">61</option><option value="61">62</option><option value="62">63</option><option value="63">64</option><option value="64">65</option><option value="65">66</option><option value="66">67</option><option value="67">68</option><option value="68">69</option><option value="69">70</option><option value="70">71</option><option value="71">72</option><option value="72">73</option><option value="73">74</option><option value="74">75</option><option value="75">76</option><option value="76">77</option><option value="77">78</option><option value="78">79</option><option value="79">80</option><option value="80">81</option><option value="81">82</option><option value="82">83</option><option value="83">84</option><option value="84">85</option><option value="85">86</option><option value="86">87</option><option value="87">88</option><option value="88">89</option><option value="89">90</option><option value="90">91</option><option value="91">92</option><option value="92">93</option><option value="93">94</option><option value="94">95</option><option value="95">96</option><option value="96">97</option><option value="97">98</option><option value="98">99</option><option value="99">100</option><option value="100">101</option><option value="101">102</option><option value="102">103</option><option value="103">104</option><option value="104">105</option><option value="105">106</option><option value="106">107</option><option value="107">108</option><option value="108">109</option><option value="109">110</option><option value="110">111</option><option value="111">112</option><option value="112">113</option><option value="113">114</option><option value="114">115</option><option value="115">116</option><option value="116">117</option><option value="117">118</option><option value="118">119</option><option value="119">120</option><option value="120">121</option><option value="121">122</option><option value="122">123</option><option value="123">124</option><option value="124">125</option><option value="125">126</option><option value="126">127</option><option value="127">128</option><option value="128">129</option><option value="129">130</option><option value="130">131</option><option value="131">132</option><option value="132">133</option><option value="133">134</option><option value="134">135</option><option value="135">136</option><option value="136">137</option><option value="137">138</option><option value="138">139</option><option value="139">140</option><option value="140">141</option><option value="141">142</option><option value="142">143</option><option value="143">144</option><option value="144">145</option><option value="145">146</option><option value="146">147</option><option value="147">148</option><option value="148">149</option><option value="149">150</option><option value="150">151</option><option value="151">152</option><option value="152">153</option><option value="153">154</option><option value="154">155</option><option value="155">156</option><option value="156">157</option><option value="157">158</option><option value="158">159</option><option value="159">160</option><option value="160">161</option><option value="161">162</option><option value="162">163</option><option value="163">164</option><option value="164">165</option><option value="165">166</option><option value="166">167</option><option value="167">168</option><option value="168">169</option><option value="169">170</option><option value="170">171</option><option value="171">172</option><option value="172">173</option><option value="173">174</option><option value="174">175</option><option value="175">176</option><option value="176">177</option><option value="177">178</option><option value="178">179</option><option value="179">180</option><option value="180">181</option><option value="181">182</option><option value="182">183</option><option value="183">184</option><option value="184">185</option><option value="185">186</option><option value="186">187</option><option value="187">188</option><option value="188">189</option><option value="189">190</option><option value="190">191</option><option value="191">192</option><option value="192">193</option><option value="193">194</option><option value="194">195</option><option value="195">196</option><option value="196">197</option><option value="197">198</option><option value="198">199</option><option value="199">200</option><option value="200">201</option><option value="201">202</option><option value="202">203</option><option value="203">204</option><option value="204">205</option><option value="205">206</option><option value="206">207</option><option value="207">208</option><option value="208">209</option><option value="209">210</option><option value="210">211</option><option value="211">212</option><option value="212">213</option><option value="213">214</option><option value="214">215</option><option value="215">216</option><option value="216">217</option><option value="217">218</option><option value="218">219</option><option value="219">220</option><option value="220">221</option><option value="221">222</option><option value="222">223</option><option value="223">224</option><option value="224">225</option><option value="225">226</option><option value="226">227</option><option value="227">228</option><option value="228">229</option><option value="229">230</option><option value="230">231</option><option value="231">232</option><option value="232">233</option><option value="233">234</option><option value="234">235</option><option value="235">236</option><option value="236">237</option><option value="237">238</option><option value="238">239</option><option value="239">240</option><option value="240">241</option><option value="241">242</option><option value="242">243</option><option value="243">244</option><option value="244">245</option><option value="245">246</option><option value="246">247</option><option value="247">248</option><option value="248">249</option><option value="249">250</option><option value="250">251</option><option value="251">252</option><option value="252">253</option><option value="253">254</option><option value="254">255</option><option value="255">256</option><option value="256">257</option><option value="257">258</option><option value="258">259</option><option value="259">260</option><option value="260">261</option><option value="261">262</option><option value="262">263</option><option value="263">264</option><option value="264">265</option><option value="265">266</option><option value="266">267</option><option value="267">268</option><option value="268">269</option><option value="269">270</option><option value="270">271</option><option value="271">272</option><option value="272">273</option><option value="273">274</option><option value="274">275</option><option value="275">276</option><option value="276">277</option><option value="277">278</option><option value="278">279</option><option value="279">280</option><option value="280">281</option><option value="281">282</option><option value="282">283</option><option value="283">284</option><option value="284">285</option><option value="285">286</option><option value="286">287</option><option value="287">288</option><option value="288">289</option><option value="289">290</option><option value="290">291</option><option value="291">292</option><option value="292">293</option><option value="293">294</option><option value="294">295</option><option value="295">296</option><option value="296">297</option><option value="297">298</option><option value="298">299</option><option value="299">300</option><option value="300">301</option><option value="301">302</option><option value="302">303</option><option value="303">304</option><option value="304">305</option><option value="305">306</option><option value="306">307</option><option value="307">308</option><option value="308">309</option><option value="309">310</option><option value="310">311</option><option value="311">312</option><option value="312">313</option><option value="313">314</option><option value="314">315</option><option value="315">316</option><option value="316">317</option><option value="317">318</option><option value="318">319</option><option value="319">320</option><option value="320">321</option><option value="321">322</option><option value="322">323</option><option value="323">324</option><option value="324">325</option><option value="325">326</option><option value="326">327</option><option value="327">328</option><option value="328">329</option><option value="329">330</option><option value="330">331</option><option value="331">332</option><option value="332">333</option><option value="333">334</option><option value="334">335</option><option value="335">336</option><option value="336">337</option><option value="337">338</option><option value="338">339</option><option value="339">340</option><option value="340">341</option><option value="341">342</option><option value="342">343</option><option value="343">344</option><option value="344">345</option><option value="345">346</option><option value="346">347</option></select>
+    <select id="pageSelect" onchange="window.location.hash = '#slide-' + this.value" class="control-btn" style="max-width: 70px;"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option><option value="4">5</option><option value="5">6</option><option value="6">7</option><option value="7">8</option><option value="8">9</option><option value="9">10</option><option value="10">11</option><option value="11">12</option><option value="12">13</option><option value="13">14</option><option value="14">15</option><option value="15">16</option><option value="16">17</option><option value="17">18</option><option value="18">19</option><option value="19">20</option><option value="20">21</option><option value="21">22</option><option value="22">23</option><option value="23">24</option><option value="24">25</option><option value="25">26</option><option value="26">27</option><option value="27">28</option><option value="28">29</option><option value="29">30</option><option value="30">31</option><option value="31">32</option><option value="32">33</option><option value="33">34</option><option value="34">35</option><option value="35">36</option><option value="36">37</option><option value="37">38</option><option value="38">39</option><option value="39">40</option><option value="40">41</option><option value="41">42</option><option value="42">43</option><option value="43">44</option><option value="44">45</option><option value="45">46</option><option value="46">47</option><option value="47">48</option><option value="48">49</option><option value="49">50</option><option value="50">51</option><option value="51">52</option><option value="52">53</option><option value="53">54</option><option value="54">55</option><option value="55">56</option><option value="56">57</option><option value="57">58</option><option value="58">59</option><option value="59">60</option><option value="60">61</option><option value="61">62</option><option value="62">63</option><option value="63">64</option><option value="64">65</option><option value="65">66</option><option value="66">67</option><option value="67">68</option><option value="68">69</option><option value="69">70</option><option value="70">71</option><option value="71">72</option><option value="72">73</option><option value="73">74</option><option value="74">75</option><option value="75">76</option><option value="76">77</option><option value="77">78</option><option value="78">79</option><option value="79">80</option><option value="80">81</option><option value="81">82</option><option value="82">83</option><option value="83">84</option><option value="84">85</option><option value="85">86</option><option value="86">87</option><option value="87">88</option><option value="88">89</option><option value="89">90</option><option value="90">91</option><option value="91">92</option><option value="92">93</option><option value="93">94</option><option value="94">95</option><option value="95">96</option><option value="96">97</option><option value="97">98</option><option value="98">99</option><option value="99">100</option><option value="100">101</option><option value="101">102</option><option value="102">103</option><option value="103">104</option><option value="104">105</option><option value="105">106</option><option value="106">107</option><option value="107">108</option><option value="108">109</option><option value="109">110</option><option value="110">111</option><option value="111">112</option><option value="112">113</option><option value="113">114</option><option value="114">115</option><option value="115">116</option><option value="116">117</option><option value="117">118</option><option value="118">119</option><option value="119">120</option><option value="120">121</option><option value="121">122</option><option value="122">123</option><option value="123">124</option><option value="124">125</option><option value="125">126</option><option value="126">127</option><option value="127">128</option><option value="128">129</option><option value="129">130</option><option value="130">131</option><option value="131">132</option><option value="132">133</option><option value="133">134</option><option value="134">135</option><option value="135">136</option><option value="136">137</option><option value="137">138</option><option value="138">139</option><option value="139">140</option><option value="140">141</option><option value="141">142</option><option value="142">143</option><option value="143">144</option><option value="144">145</option><option value="145">146</option><option value="146">147</option><option value="147">148</option><option value="148">149</option><option value="149">150</option><option value="150">151</option><option value="151">152</option><option value="152">153</option><option value="153">154</option><option value="154">155</option><option value="155">156</option><option value="156">157</option><option value="157">158</option><option value="158">159</option><option value="159">160</option><option value="160">161</option><option value="161">162</option><option value="162">163</option><option value="163">164</option><option value="164">165</option><option value="165">166</option><option value="166">167</option><option value="167">168</option><option value="168">169</option><option value="169">170</option><option value="170">171</option><option value="171">172</option><option value="172">173</option><option value="173">174</option><option value="174">175</option><option value="175">176</option><option value="176">177</option><option value="177">178</option><option value="178">179</option><option value="179">180</option><option value="180">181</option><option value="181">182</option><option value="182">183</option><option value="183">184</option><option value="184">185</option><option value="185">186</option><option value="186">187</option><option value="187">188</option><option value="188">189</option><option value="189">190</option><option value="190">191</option><option value="191">192</option><option value="192">193</option><option value="193">194</option><option value="194">195</option><option value="195">196</option><option value="196">197</option><option value="197">198</option><option value="198">199</option><option value="199">200</option><option value="200">201</option><option value="201">202</option><option value="202">203</option><option value="203">204</option><option value="204">205</option><option value="205">206</option><option value="206">207</option><option value="207">208</option><option value="208">209</option><option value="209">210</option><option value="210">211</option><option value="211">212</option><option value="212">213</option><option value="213">214</option><option value="214">215</option><option value="215">216</option><option value="216">217</option><option value="217">218</option><option value="218">219</option><option value="219">220</option><option value="220">221</option><option value="221">222</option><option value="222">223</option><option value="223">224</option><option value="224">225</option><option value="225">226</option><option value="226">227</option><option value="227">228</option><option value="228">229</option><option value="229">230</option><option value="230">231</option><option value="231">232</option><option value="232">233</option><option value="233">234</option><option value="234">235</option><option value="235">236</option><option value="236">237</option><option value="237">238</option><option value="238">239</option><option value="239">240</option><option value="240">241</option><option value="241">242</option><option value="242">243</option><option value="243">244</option><option value="244">245</option><option value="245">246</option><option value="246">247</option><option value="247">248</option><option value="248">249</option><option value="249">250</option><option value="250">251</option><option value="251">252</option><option value="252">253</option><option value="253">254</option><option value="254">255</option><option value="255">256</option><option value="256">257</option><option value="257">258</option><option value="258">259</option><option value="259">260</option><option value="260">261</option><option value="261">262</option><option value="262">263</option><option value="263">264</option><option value="264">265</option><option value="265">266</option><option value="266">267</option><option value="267">268</option><option value="268">269</option><option value="269">270</option><option value="270">271</option><option value="271">272</option><option value="272">273</option><option value="273">274</option><option value="274">275</option><option value="275">276</option><option value="276">277</option><option value="277">278</option><option value="278">279</option><option value="279">280</option><option value="280">281</option><option value="281">282</option><option value="282">283</option><option value="283">284</option><option value="284">285</option><option value="285">286</option><option value="286">287</option><option value="287">288</option><option value="288">289</option><option value="289">290</option><option value="290">291</option><option value="291">292</option><option value="292">293</option><option value="293">294</option><option value="294">295</option><option value="295">296</option><option value="296">297</option><option value="297">298</option><option value="298">299</option><option value="299">300</option><option value="300">301</option><option value="301">302</option><option value="302">303</option><option value="303">304</option><option value="304">305</option><option value="305">306</option><option value="306">307</option><option value="307">308</option><option value="308">309</option><option value="309">310</option><option value="310">311</option><option value="311">312</option><option value="312">313</option><option value="313">314</option><option value="314">315</option><option value="315">316</option><option value="316">317</option><option value="317">318</option><option value="318">319</option><option value="319">320</option><option value="320">321</option><option value="321">322</option><option value="322">323</option><option value="323">324</option><option value="324">325</option><option value="325">326</option><option value="326">327</option><option value="327">328</option><option value="328">329</option><option value="329">330</option><option value="330">331</option><option value="331">332</option><option value="332">333</option><option value="333">334</option><option value="334">335</option><option value="335">336</option><option value="336">337</option><option value="337">338</option><option value="338">339</option><option value="339">340</option><option value="340">341</option><option value="341">342</option><option value="342">343</option><option value="343">344</option><option value="344">345</option><option value="345">346</option><option value="346">347</option><option value="347">348</option><option value="348">349</option><option value="349">350</option><option value="350">351</option><option value="351">352</option><option value="352">353</option><option value="353">354</option><option value="354">355</option><option value="355">356</option><option value="356">357</option><option value="357">358</option><option value="358">359</option><option value="359">360</option><option value="360">361</option><option value="361">362</option><option value="362">363</option><option value="363">364</option><option value="364">365</option><option value="365">366</option><option value="366">367</option><option value="367">368</option><option value="368">369</option><option value="369">370</option><option value="370">371</option><option value="371">372</option><option value="372">373</option><option value="373">374</option><option value="374">375</option><option value="375">376</option><option value="376">377</option><option value="377">378</option><option value="378">379</option><option value="379">380</option><option value="380">381</option><option value="381">382</option><option value="382">383</option><option value="383">384</option><option value="384">385</option><option value="385">386</option><option value="386">387</option><option value="387">388</option><option value="388">389</option><option value="389">390</option><option value="390">391</option><option value="391">392</option><option value="392">393</option><option value="393">394</option><option value="394">395</option><option value="395">396</option><option value="396">397</option><option value="397">398</option><option value="398">399</option><option value="399">400</option><option value="400">401</option><option value="401">402</option><option value="402">403</option><option value="403">404</option><option value="404">405</option><option value="405">406</option><option value="406">407</option><option value="407">408</option><option value="408">409</option><option value="409">410</option><option value="410">411</option><option value="411">412</option><option value="412">413</option><option value="413">414</option><option value="414">415</option><option value="415">416</option><option value="416">417</option><option value="417">418</option><option value="418">419</option><option value="419">420</option><option value="420">421</option><option value="421">422</option><option value="422">423</option><option value="423">424</option><option value="424">425</option><option value="425">426</option><option value="426">427</option><option value="427">428</option><option value="428">429</option><option value="429">430</option><option value="430">431</option><option value="431">432</option><option value="432">433</option><option value="433">434</option><option value="434">435</option><option value="435">436</option><option value="436">437</option><option value="437">438</option><option value="438">439</option><option value="439">440</option><option value="440">441</option><option value="441">442</option><option value="442">443</option><option value="443">444</option><option value="444">445</option><option value="445">446</option><option value="446">447</option><option value="447">448</option><option value="448">449</option><option value="449">450</option><option value="450">451</option><option value="451">452</option><option value="452">453</option><option value="453">454</option><option value="454">455</option><option value="455">456</option><option value="456">457</option><option value="457">458</option><option value="458">459</option><option value="459">460</option><option value="460">461</option><option value="461">462</option><option value="462">463</option><option value="463">464</option><option value="464">465</option><option value="465">466</option><option value="466">467</option><option value="467">468</option><option value="468">469</option><option value="469">470</option><option value="470">471</option><option value="471">472</option><option value="472">473</option><option value="473">474</option><option value="474">475</option><option value="475">476</option><option value="476">477</option><option value="477">478</option><option value="478">479</option><option value="479">480</option><option value="480">481</option><option value="481">482</option><option value="482">483</option><option value="483">484</option><option value="484">485</option><option value="485">486</option><option value="486">487</option><option value="487">488</option><option value="488">489</option><option value="489">490</option><option value="490">491</option><option value="491">492</option><option value="492">493</option><option value="493">494</option><option value="494">495</option><option value="495">496</option><option value="496">497</option><option value="497">498</option><option value="498">499</option><option value="499">500</option><option value="500">501</option><option value="501">502</option><option value="502">503</option><option value="503">504</option><option value="504">505</option><option value="505">506</option><option value="506">507</option><option value="507">508</option><option value="508">509</option><option value="509">510</option><option value="510">511</option><option value="511">512</option><option value="512">513</option><option value="513">514</option><option value="514">515</option><option value="515">516</option><option value="516">517</option><option value="517">518</option><option value="518">519</option><option value="519">520</option></select>
   </div>
 </div>
 
@@ -2451,19 +2453,9 @@ const slider = document.getElementById("slider");
 const loadingOverlay = document.getElementById('loading-overlay');
 const loadingText = document.getElementById('loading-text');
 
-// --- INITIALIZATION LOGIC ---
-if(document.getElementById('bulkInput')) {
-    buildTOC();
-    goSlide(0); 
-} else {
-    updateCounters();
-    if(!window.location.hash) goSlide(0);
-}
-
-// Mobile Optimization: Close TOC when clicking content
-slider.addEventListener('click', () => {
-    closeTOC();
-});
+// Initial Setup
+buildTOC();
+goSlide(0); 
 
 // --- Layout Toggle ---
 function toggleLayout() {
@@ -2473,7 +2465,6 @@ function toggleLayout() {
     btn.innerText = isVertical ? "📖 แนวนอน" : "📜 แนวตั้ง";
     const currentIndex = parseInt(document.getElementById('pageSelect').value) || 0;
     setTimeout(() => goSlide(currentIndex), 100);
-    closeTOC(); // Close TOC when changing layout
 }
 
 // --- DELETE PAGE LOGIC ---
@@ -2503,38 +2494,35 @@ function reindexSlides() {
 }
 
 // --- Bulk Upload Logic ---
-const bulkInput = document.getElementById('bulkInput');
-if(bulkInput) {
-    bulkInput.addEventListener('change', async function(e) {
-        const files = Array.from(this.files);
-        if(files.length === 0) return;
-        files.sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
-        const slides = document.querySelectorAll('.slide');
-        if(slides.length === 1) {
-            const firstSlide = slides[0];
-            const hasImages = firstSlide.querySelectorAll('img').length > 0;
-            if(!hasImages) slider.innerHTML = ''; 
+document.getElementById('bulkInput').addEventListener('change', async function(e) {
+    const files = Array.from(this.files);
+    if(files.length === 0) return;
+    files.sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+    const slides = document.querySelectorAll('.slide');
+    if(slides.length === 1) {
+        const firstSlide = slides[0];
+        const hastri8 = firstSlide.querySelectorAll('img').length > 0;
+        if(!hastri8) slider.innerHTML = ''; 
+    }
+    loadingOverlay.style.display = 'flex';
+    try {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            loadingText.innerText = `กำลังประมวลผลไฟล์ ${i+1}/${files.length}...`;
+            if (file.type === 'application/pdf') await processPDF(file);
+            else if (file.type.startsWith('image/')) await processImage(file);
         }
-        loadingOverlay.style.display = 'flex';
-        try {
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                loadingText.innerText = `กำลังประมวลผลไฟล์ ${i+1}/${files.length}...`;
-                if (file.type === 'application/pdf') await processPDF(file);
-                else if (file.type.startsWith('image/')) await processImage(file);
-            }
-            reindexSlides();
-            goSlide(0);
-            loadingOverlay.style.display = 'none';
-            alert("นำเข้าข้อมูลเรียบร้อย!");
-        } catch (err) {
-            console.error(err);
-            loadingOverlay.style.display = 'none';
-            alert("เกิดข้อผิดพลาดในการประมวลผลไฟล์");
-        }
-        this.value = ''; 
-    });
-}
+        reindexSlides();
+        goSlide(0);
+        loadingOverlay.style.display = 'none';
+        alert("นำเข้าข้อมูลเรียบร้อย!");
+    } catch (err) {
+        console.error(err);
+        loadingOverlay.style.display = 'none';
+        alert("เกิดข้อผิดพลาดในการประมวลผลไฟล์");
+    }
+    this.value = ''; 
+});
 
 async function processImage(file) {
     return new Promise((resolve) => {
@@ -2668,14 +2656,8 @@ function applyCrop() {
 }
 
 // Navigation & Logic
-function next(){ 
-    slider.scrollBy({left:window.innerWidth, behavior:"smooth"}); 
-    closeTOC();
-}
-function prev(){ 
-    slider.scrollBy({left:-window.innerWidth, behavior:"smooth"}); 
-    closeTOC();
-}
+function next(){ slider.scrollBy({left:window.innerWidth, behavior:"smooth"}); }
+function prev(){ slider.scrollBy({left:-window.innerWidth, behavior:"smooth"}); }
 
 function goSlide(index){ 
     index = parseInt(index);
@@ -2686,21 +2668,13 @@ function goSlide(index){
         slider.scrollTo({left:index*window.innerWidth, behavior:"smooth"}); 
     }
     updatePageUI(index);
-    closeTOC(); // Close TOC on manual navigation
 }
 
 function updatePageUI(index) {
     index = Math.round(index); 
     const sliderInput = document.getElementById("pageSlider"), pageNum = document.getElementById("pageNum"), pageSelect = document.getElementById("pageSelect");
     document.querySelectorAll('.toc-item-wrapper').forEach(d => d.classList.remove('active'));
-    // หาปุ่ม active ในสารบัญ (รองรับทั้งแบบปุ่มเดิม และแบบลิงก์ในหน้า export)
-    const activeToc = document.getElementById(`toc-wrap-${index}`);
-    if(activeToc) {
-        activeToc.classList.add('active');
-        // เลื่อน Scroll สารบัญไปหาตัวที่ Active
-        activeToc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-    
+    const activeToc = document.getElementById(`toc-wrap-${index}`); if(activeToc) activeToc.classList.add('active');
     if(sliderInput) sliderInput.value = index; if(pageNum) pageNum.innerText = Number(index)+1; if(pageSelect) pageSelect.value = index;
 }
 
@@ -2724,24 +2698,40 @@ function buildTOC() {
 }
 function addTocItem(index, name) {
     const toc = document.getElementById("toc"), wrapper = document.createElement('div'); wrapper.className = 'toc-item-wrapper'; wrapper.id = `toc-wrap-${index}`;
-    const textDiv = document.createElement('div'); textDiv.className = 'toc-text'; textDiv.innerText = name; textDiv.setAttribute('contenteditable', 'true');
-    // Change: Click TOC item -> Go slide and Close TOC
-    textDiv.onclick = (e) => { goSlide(index); closeTOC(); };
-    textDiv.addEventListener('input', function() { const slide = document.getElementById(`slide-${index}`); if(slide) slide.setAttribute('data-name', this.innerText); });
     
-    // ปุ่มลบในสารบัญ (แสดงเฉพาะตอนแก้ไข)
-    const delBtn = document.createElement('span');
-    delBtn.className = 'toc-del-btn edit-only';
-    delBtn.innerText = '❌';
-    delBtn.title = 'ลบหน้านี้';
-    delBtn.onclick = (e) => {
-        e.stopPropagation();
-        const slide = document.getElementById(`slide-${index}`);
-        if(slide) deleteSlide({ closest: () => slide });
-    };
+    // Check if Editor Mode (bulkInput exists)
+    const isEditor = document.getElementById('bulkInput') !== null;
 
-    wrapper.appendChild(textDiv);
-    wrapper.appendChild(delBtn);
+    if (isEditor) {
+        const textDiv = document.createElement('div'); 
+        textDiv.className = 'toc-text'; 
+        textDiv.innerText = name; 
+        textDiv.setAttribute('contenteditable', 'true');
+        textDiv.onclick = (e) => { goSlide(index); toggleTOC(); };
+        textDiv.addEventListener('input', function() { const slide = document.getElementById(`slide-${index}`); if(slide) slide.setAttribute('data-name', this.innerText); });
+        
+        const delBtn = document.createElement('span');
+        delBtn.className = 'toc-del-btn edit-only';
+        delBtn.innerText = '❌';
+        delBtn.title = 'ลบหน้านี้';
+        delBtn.onclick = (e) => {
+            e.stopPropagation();
+            const slide = document.getElementById(`slide-${index}`);
+            if(slide) deleteSlide({ closest: () => slide });
+        };
+        wrapper.appendChild(textDiv);
+        wrapper.appendChild(delBtn);
+    } else {
+        const link = document.createElement('a');
+        link.className = 'toc-text';
+        link.innerText = name;
+        link.href = `#slide-${index}`;
+        link.onclick = () => { toggleTOC(); };
+        link.style.display = 'block';
+        link.style.textDecoration = 'none';
+        link.style.color = 'inherit';
+        wrapper.appendChild(link);
+    }
     toc.appendChild(wrapper);
 }
 function updateCounters() {
@@ -2753,52 +2743,38 @@ function updateCounters() {
 
 // Utils
 function toggleTOC(){ document.getElementById("toc").classList.toggle("show"); }
-function closeTOC(){ document.getElementById("toc").classList.remove("show"); }
-
 function fontSize(change){
   currentZoom += (change * 0.1); 
   if(currentZoom < 0.5) currentZoom = 0.5; if(currentZoom > 5.0) currentZoom = 5.0; 
-  document.querySelectorAll(".slide-content").forEach(el => { el.style.zoom = currentZoom; if (!('zoom' in document.body.style)) el.style.transform = `scale(${currentZoom})`; });
+  
+  const widthPercent = Math.round(currentZoom * 100);
+  document.querySelectorAll(".slide-content").forEach(el => { 
+    el.style.zoom = ""; el.style.transform = ""; 
+    el.style.width = widthPercent + "%";
+    el.style.fontSize = (18 * currentZoom) + "px";
+  });
 }
 function changeTheme(themeName) { document.body.className = themeName; }
 
 // --- EXPORT AS ZIP LOGIC ---
 async function downloadZip(){
   const zip = new JSZip();
-  const imgFolder = zip.folder("images");
+  const imgFolder = zip.folder("tri8");
   
   const clone = document.documentElement.cloneNode(true);
   
-  // 1. Cleanup Editor UI (ลบปุ่มแก้ไข/ลบทั้งหมด)
-  clone.querySelectorAll(".edit-only, .delete-page-btn, .toc-del-btn, #cropModal, #imgInputGlobal, #loading-overlay, #bulkInput").forEach(el => el.remove());
+  // 1. Cleanup Editor UI (including bulkInput to trigger read-only mode in TOC)
+  const editorTools = clone.querySelectorAll(".edit-only, .delete-page-btn, .toc-del-btn, #cropModal, #imgInputGlobal, #loading-overlay, #bulkInput");
+  editorTools.forEach(el => el.remove());
   
-  // 2. Disable ContentEditable (ปิดการแก้ไขข้อความทุกจุด)
+  // 2. Disable ContentEditable
   clone.querySelectorAll("[contenteditable]").forEach(el => el.removeAttribute("contenteditable"));
   
-  // 3. Fix TOC: Convert to static links (แปลงสารบัญเป็นลิงก์อ่านอย่างเดียว)
-  clone.querySelectorAll(".toc-item-wrapper").forEach((wrapper, index) => {
-       // ลบปุ่มลบ (เผื่อเหลือ)
-       wrapper.querySelectorAll('.toc-del-btn').forEach(e => e.remove());
-       
-       const oldDiv = wrapper.querySelector('.toc-text');
-       if (oldDiv) {
-           const newLink = document.createElement('a');
-           newLink.className = oldDiv.className;
-           newLink.innerText = oldDiv.innerText;
-           newLink.href = `#slide-${index}`; 
-           // Update: Click Link -> Close TOC (for exported version)
-           newLink.onclick = function() { closeTOC(); }; 
-           newLink.style.cursor = 'pointer'; 
-           newLink.style.display = 'block';
-           newLink.style.textDecoration = 'none';
-           newLink.style.color = 'inherit';
-           // เอา contenteditable ออกจากลิงก์
-           newLink.removeAttribute('contenteditable');
-           wrapper.replaceChild(newLink, oldDiv);
-       }
-  });
+  // 3. Clear TOC so it rebuilds in Read-Only mode automatically on load
+  const tocContainer = clone.querySelector('#toc'); // FIX: use querySelector
+  if(tocContainer) tocContainer.innerHTML = '';
 
-  // 4. Transform Select to update Hash
+  // 4. Transform Select
   const pageSelect = clone.querySelector('#pageSelect');
   if(pageSelect) {
       pageSelect.setAttribute('onchange', "window.location.hash = '#slide-' + this.value");
@@ -2807,7 +2783,9 @@ async function downloadZip(){
   // 5. Inject Export Script
   const exportScript = document.createElement('script');
   exportScript.textContent = `
+    // Auto-rebuild TOC in Read-Only Mode
     window.addEventListener('load', () => {
+        buildTOC(); // This will use the "else" block in addTocItem because #bulkInput is gone
         if(window.location.hash) {
             const index = window.location.hash.replace('#slide-', '');
             goSlide(index);
@@ -2820,13 +2798,13 @@ async function downloadZip(){
   `;
   clone.querySelector('body').appendChild(exportScript);
 
-  // 6. Process Images
-  const images = clone.querySelectorAll("img.editable-img");
-  const originalImages = document.querySelectorAll("img.editable-img");
+  // 6. Process tri8
+  const tri8 = clone.querySelectorAll("img.editable-img");
+  const originaltri8 = document.querySelectorAll("img.editable-img");
 
-  for(let i=0; i<images.length; i++) {
-      const imgClone = images[i];
-      const imgOriginal = originalImages[i];
+  for(let i=0; i<tri8.length; i++) {
+      const imgClone = tri8[i];
+      const imgOriginal = originaltri8[i];
       let filename = `img_${Date.now()}_${i}.jpg`;
       let data = null;
 
@@ -2843,11 +2821,12 @@ async function downloadZip(){
       if (data) {
           if(imgOriginal.fileRef) imgFolder.file(filename, data);
           else imgFolder.file(filename, data, {base64: true});
-          imgClone.src = "images/" + filename;
+          imgClone.src = "tri8/" + filename;
       }
   }
 
-  zip.file("index.html", clone.outerHTML);
+  // Add Doctype for safety
+  zip.file("index.html", "<!DOCTYPE html>\n" + clone.outerHTML);
 
   zip.generateAsync({type:"blob"}).then(function(content) {
       const a = document.createElement("a");
@@ -2859,7 +2838,9 @@ async function downloadZip(){
 </script>
 
 <script>
+    // Auto-rebuild TOC in Read-Only Mode
     window.addEventListener('load', () => {
+        buildTOC(); // This will use the "else" block in addTocItem because #bulkInput is gone
         if(window.location.hash) {
             const index = window.location.hash.replace('#slide-', '');
             goSlide(index);
