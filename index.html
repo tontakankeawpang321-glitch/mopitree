@@ -53,6 +53,7 @@
     display: none;
     width: 100%;
     min-height: calc(100vh - 70px);
+    background: var(--paper);
   }
   .view-section.active {
     display: block;
@@ -182,7 +183,7 @@
     font-size: 0.9em;
   }
 
-  /* --- Ebook Viewer Styles --- */
+  /* --- STREAMING_CHUNK: Styling ebook reader view --- */
   #reader-view {
     position: relative;
     background: #ffffff;
@@ -271,7 +272,6 @@
     display: none !important;
   }
 
-  /* --- Slide Content & Paper Margin Centering --- */
   .slide-content {
     width: calc(100% - 32px);
     max-width: 850px;
@@ -391,7 +391,7 @@
     font-size: 0.95em;
   }
 
-  /* --- Mobile Bottom Navigation Bar --- */
+  /* --- STREAMING_CHUNK: Styling bottom navigation bar and mobile player --- */
   .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -495,9 +495,6 @@
     z-index: 8999;
     transition: transform 0.2s ease;
   }
-  .fab-restore-btn:hover {
-    transform: translateY(-3px);
-  }
 
   .fab-ai {
     width: 56px;
@@ -514,7 +511,6 @@
     cursor: pointer;
     transition: transform .2s ease;
   }
-  .fab-ai:hover { transform: translateY(-4px); }
 
   .fab-checkin {
     width: 50px;
@@ -532,7 +528,6 @@
     position: relative;
     transition: transform .2s ease;
   }
-  .fab-checkin:hover { transform: translateY(-4px); }
 
   .checkin-badge {
     position: absolute;
@@ -547,50 +542,57 @@
     border: 1px solid #fff;
   }
 
-  /* --- Audio Chanting Player Drawer / View --- */
+  /* --- STREAMING_CHUNK: Styling audio player view and cards --- */
   #audio-view {
-    padding: 20px;
+    padding: 16px;
     padding-bottom: 140px;
     max-width: 850px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .audio-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .audio-player-card {
     background: var(--ivory);
     border-radius: var(--radius);
-    padding: 20px;
+    padding: 18px;
     box-shadow: var(--shadow-2);
     border: 2px solid var(--gold2);
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .track-info {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
   }
 
   .track-disc {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--gold2), var(--gold3));
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 26px;
+    font-size: 24px;
     box-shadow: 0 4px 10px rgba(185, 145, 59, 0.4);
     animation: spin 10s linear infinite;
     animation-play-state: paused;
+    flex-shrink: 0;
   }
   .track-disc.playing {
     animation-play-state: running;
@@ -600,33 +602,41 @@
 
   .track-details {
     flex: 1;
+    min-width: 0;
   }
 
   .track-title {
     font-weight: 700;
-    font-size: 1.15em;
+    font-size: 1.1em;
     color: var(--ink);
+    line-height: 1.3;
+    word-break: break-word;
   }
 
   .track-subtitle {
-    font-size: 0.88em;
+    font-size: 0.85em;
     color: #666;
+    margin-top: 3px;
+    line-height: 1.3;
+    word-break: break-word;
   }
 
   .progress-area {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    width: 100%;
   }
 
   .progress-bar-container {
     width: 100%;
-    height: 8px;
+    height: 10px;
     background: #e2d8be;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    touch-action: manipulation;
   }
 
   .progress-bar-fill {
@@ -649,23 +659,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .btn-player {
     background: linear-gradient(135deg, var(--ivory), var(--gold1));
     border: 1px solid var(--gold3);
     color: var(--gold3);
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     box-shadow: var(--shadow);
     transition: all 0.2s ease;
+    flex-shrink: 0;
   }
 
   .btn-player:hover {
@@ -675,9 +688,9 @@
   }
 
   .btn-player.btn-play-main {
-    width: 56px;
-    height: 56px;
-    font-size: 24px;
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
     background: linear-gradient(135deg, var(--gold2), var(--gold3));
     color: white;
   }
@@ -693,7 +706,9 @@
     align-items: center;
     padding-top: 10px;
     border-top: 1px dashed rgba(224,191,106,.5);
-    font-size: 0.9em;
+    font-size: 0.88em;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .switch-container {
@@ -702,6 +717,19 @@
     gap: 8px;
     cursor: pointer;
     user-select: none;
+  }
+
+  @media (max-width: 480px) {
+    #audio-view { padding: 12px 10px 140px 10px; }
+    .audio-player-card { padding: 14px 12px; gap: 12px; border-radius: 18px; }
+    .track-info { gap: 10px; }
+    .track-disc { width: 46px; height: 46px; font-size: 20px; }
+    .track-title { font-size: 0.98em; }
+    .track-subtitle { font-size: 0.8em; }
+    .player-controls { gap: 8px; }
+    .btn-player { width: 38px; height: 38px; font-size: 15px; }
+    .btn-player.btn-play-main { width: 48px; height: 48px; font-size: 20px; }
+    .extra-settings { flex-direction: column; align-items: flex-start; gap: 8px; }
   }
 
   /* --- Chanting Audio List --- */
@@ -713,7 +741,7 @@
 
   .audio-item {
     background: var(--ivory);
-    padding: 14px 18px;
+    padding: 12px 16px;
     border-radius: 16px;
     border: 1px solid rgba(224,191,106,.4);
     display: flex;
@@ -722,6 +750,7 @@
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     transition: all 0.2s ease;
+    gap: 12px;
   }
 
   .audio-item:hover {
@@ -739,46 +768,50 @@
   .audio-item-title {
     font-weight: 600;
     color: #222;
-    font-size: 0.98em;
+    font-size: 0.95em;
+    line-height: 1.3;
+    word-break: break-word;
   }
 
   .audio-item-duration {
-    font-size: 0.82em;
+    font-size: 0.8em;
     color: #777;
     margin-top: 2px;
   }
 
   .audio-play-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: var(--gold1);
     color: var(--gold3);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
+    flex-shrink: 0;
   }
 
-  /* Mini Floating Player when listening while in book mode */
+  /* Mini Floating Player */
   .mini-player-bar {
     position: fixed;
     bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 32px);
+    width: calc(100% - 24px);
     max-width: 480px;
     background: rgba(255, 253, 247, 0.98);
     backdrop-filter: blur(8px);
     border: 1px solid var(--gold3);
     border-radius: 30px;
-    padding: 8px 16px;
+    padding: 8px 14px;
     display: none;
     align-items: center;
     justify-content: space-between;
     z-index: 8500;
     box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-sizing: border-box;
   }
 
   .mini-info {
@@ -787,6 +820,8 @@
     gap: 10px;
     overflow: hidden;
     cursor: pointer;
+    flex: 1;
+    min-width: 0;
   }
 
   .mini-disc {
@@ -811,7 +846,7 @@
     max-width: 220px;
   }
 
-  /* --- Modal Styles --- */
+  /* --- STREAMING_CHUNK: Styling modal dialog and chat windows --- */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -864,7 +899,6 @@
     display: none;
   }
 
-  /* --- Chatbox Styles --- */
   .chat-container {
     position: fixed;
     bottom: 145px;
@@ -967,9 +1001,6 @@
 
 <body>
 
-<!-- ========================================== -->
-<!-- VIEW 1: INDEX / LANDING PAGE               -->
-<!-- ========================================== -->
 <div id="index-view" class="view-section active">
   <h1 class="index-title">📖 สารบัญบทสวดมนต์</h1>
 
@@ -1020,14 +1051,11 @@
   </a>
 </div>
 
-<!-- ========================================== -->
-<!-- VIEW 2: E-BOOK READER / SLIDER VIEW        -->
-<!-- ========================================== -->
 <div id="reader-view" class="view-section">
   
   <!-- Reader Top Bar -->
   <div class="topbar">
-    <button class="btn-control btn-home" onclick="switchMainTab('book')">🏠 สารบัญ</button>
+    <button class="btn-control btn-home" onclick="showView('index')">🏠 สารบัญ</button>
     <div style="display:flex; gap:6px; align-items:center;">
       <button class="btn-control" onclick="toggleLayout()" id="layoutBtn">📜 แนวตั้ง</button>
       <button class="btn-control" onclick="toggleTOC()">📖 สารบัญ</button>
@@ -1059,7 +1087,9 @@
             <div class="slide-content" style="zoom: 1;">
               <div class="img-container" id="img-cont-${i}">
                 <div class="img-wrapper">
-                  <img data-src="monpitree/images/img_${i}.jpg" class="editable-img" loading="lazy" decoding="async" alt="${name}">
+                  <img data-src="monpitree/images/img_${i}.jpg" 
+                       onerror="this.onerror=null; this.src='https://placehold.co/600x800/fbf7ef/b9913b?text=' + encodeURIComponent('${name}');" 
+                       class="editable-img" loading="lazy" decoding="async" alt="${name}">
                 </div>
               </div>
             </div>
@@ -1083,9 +1113,6 @@
   </div>
 </div>
 
-<!-- ========================================== -->
-<!-- VIEW 3: AUDIO CHANTING PLAYER              -->
-<!-- ========================================== -->
 <div id="audio-view" class="view-section">
   <div class="audio-header">
     <h1 style="font-size: 1.6em; font-weight: 700; color: var(--gold3);">🎧 เสียงสวดมนต์</h1>
@@ -1146,7 +1173,7 @@
   </div>
 </div>
 
-<!-- Mini Player Bar (Visible when audio plays in background) -->
+<!-- Mini Player Bar -->
 <div class="mini-player-bar" id="miniPlayerBar">
   <div class="mini-info" onclick="switchMainTab('audio')">
     <div class="mini-disc" id="miniDisc">☸</div>
@@ -1161,7 +1188,6 @@
   </div>
 </div>
 
-<!-- Mobile Bottom Navigation Bar -->
 <nav class="bottom-nav">
   <button class="nav-btn active" id="navBtnBook" onclick="switchMainTab('book')">
     <span class="icon">📖</span>
@@ -1172,10 +1198,6 @@
     <span>เสียงสวดมนต์</span>
   </button>
 </nav>
-
-<!-- ========================================== -->
-<!-- FLOATING WIDGETS & MODAL                   -->
-<!-- ========================================== -->
 
 <!-- Floating Action Buttons Container -->
 <div class="fab-container" id="fabContainer">
@@ -1233,68 +1255,124 @@
 // --- Global State & Chanting Audio Database ---
 let currentZoom = 1.0;
 let totalSlides = 0;
+let currentReadingSlide = 0; // Remembers current reading slide index
 const slider = document.getElementById("slider");
 const mainAudio = document.getElementById("mainAudioPlayer");
 
-// Chanting Audio List (Developers can directly edit audio URLs here)
-// Supports Google Drive Direct Links or standard MP3 links
+// Chanting Audio List
 const chantingPlaylist = [
   {
-    id: 1,
-    title: "บทสวดทำวัตรเช้า",
-    subtitle: "สวดมนต์เช้า ระลึกถึงพระรัตนตรัย",
-    duration: "12:45",
-   url: "audio/wat01.mp3"
-  },
-  {
-    id: 2,
-    title: "บทสวดทำวัตรเย็น",
-    subtitle: "สวดมนต์เย็น ทำสมาธิก่อนนอน",
-    duration: "15:20",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-  },
-  {
-    id: 3,
-    title: "บทกรวดน้ำอิมินา (อุทิศส่วนกุศล)",
-    subtitle: "แผ่เมตตาจิตอุทิศบุญแก่บิดามารดาและสรรพสัตว์",
-    duration: "04:15",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-  },
-  {
-    id: 4,
-    title: "บทสวดคาถาชินบัญชร",
-    subtitle: "สมเด็จพระพุฒาจารย์ (โต พรหมรังสี)",
-    duration: "08:30",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-  },
-  {
-    id: 5,
-    title: "บทคาถาพาหุง มะกา (พุทธชัยมงคลคาถา)",
-    subtitle: "ชัยชนะอันยิ่งใหญ่ของพระพุทธเจ้า",
-    duration: "06:50",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
-  },
-  {
-    id: 6,
-    title: "บทสวดพระมหาจักรพรรดิ",
-    subtitle: "หลวงปู่ดู่ พรหมปัญโญปรับภพภูมิ",
-    duration: "09:10",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
-  },
-  {
-    id: 7,
-    title: "บทนมัสการ พระอรหันต์ 8 ทิศ",
-    subtitle: "บทสวดป้องกันภัย 8 ทิศทาง",
-    duration: "05:40",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
-  },
-  {
-    id: 8,
-    title: "บทสวดอิติปิโส 108 จบ",
-    subtitle: "เสริมอภิมหาบารมี คุ้มครองดวงชะตา",
-    duration: "25:00",
-    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-  }
+  id: 1,
+  title: "บทสวดทำวัตรเช้า",
+  subtitle: "สวดมนต์เช้า บูชาพระรัตนตรัยและเจริญสติ",
+  duration: "12:45",
+  url: "audio/wat01.mp3"
+},
+{
+  id: 2,
+  title: "บทสวดทำวัตรเย็น",
+  subtitle: "สวดมนต์เย็น ทำจิตใจสงบก่อนพักผ่อน",
+  duration: "15:20",
+  url: "audio/watyen02.mp3"
+},
+{
+  id: 3,
+  title: "เจ็ดตำนาน",
+  subtitle: "บทสวดพระปริตร ๗ ตำนาน เพื่อความเป็นสิริมงคล",
+  duration: "32.30",
+  url: "audio/7tomnan03.mp3"
+},
+{
+  id: 4,
+  title: "สิบสองตำนาน",
+  subtitle: "บทสวดพระปริตร ๑๒ ตำนาน เสริมสิริมงคลและป้องกันภัย",
+  duration: "48.36",
+  url: "audio/12tonan04.mp3"
+},
+{
+  id: 5,
+  title: "ธัมจักรกัปปวัตตนสูตร",
+  subtitle: "พระธรรมเทศนากัณฑ์แรก แสดงอริยสัจ ๔",
+  duration: "24.58",
+  url: "audio/tammajak05.mp3"
+},
+{
+  id: 6,
+  title: "อนันตลักขณสูตร",
+  subtitle: "พระสูตรแสดงหลักอนัตตาและการละอัตตาตัวตน",
+  duration: "19.48",
+  url: "audio/anatalakanasod06.mp3"
+},
+{
+  id: 7,
+  title: "อาทิตตปริยายสูตร",
+  subtitle: "พระสูตรไฟ แสดงความไม่เที่ยงของอายตนะทั้งหลาย",
+  duration: "18.03",
+  url: "audio/artidpalayasod07.mp3"
+},
+{
+  id: 8,
+  title: "เมตตานิสังสตุตปาฐสูตร",
+  subtitle: "บทสวดแผ่เมตตา เพื่อความสุข ความปลอดภัย และเป็นสิริมงคล",
+  duration: "02.54",
+  url: "audio/matesonkinike08.mp3"
+},
+{
+  id: 9,
+  title: "สวดแจงพระวินัย",
+  subtitle: "บทสวดแสดงหลักพระวินัยและข้อปฏิบัติของสงฆ์",
+  duration: "15.51",
+  url: "audio/Dhamma09.mp3"
+},
+{
+  id: 10,
+  title: "พระอภิธรรม",
+  subtitle: "บทสวดพระอภิธรรม เพื่อระลึกถึงพระธรรมอันลึกซึ้ง",
+  duration: "08.31",
+  url: "audio/Dhamma10.mp3"
+},
+{
+  id: 11,
+  title: "มาติกา",
+  subtitle: "บทตั้งหัวข้อธรรมเบื้องต้นของพระอภิธรรม",
+  duration: "08.20",
+  url: "audio/Dhamma11.mp3"
+},
+{
+  id: 12,
+  title: "ธัมมนิยาม",
+  subtitle: "บทสวดว่าด้วยกฎธรรมชาติและความเป็นไปแห่งธรรม",
+  duration: "18.49",
+  url: "audio/Dhamma12.mp3"
+},
+{
+  id: 13,
+  title: "บทให้พร",
+  subtitle: "บทสวดอำนวยพรเพื่อความเป็นสิริมงคลและความเจริญ",
+  duration: "16.10",
+  url: "audio/Dhamma13.mp3"
+},
+{
+  id: 14,
+  title: "มงคลจักรวาลใหญ่",
+  subtitle: "บทสวดคุ้มครอง ป้องกันภัย และเสริมสิริมงคล",
+  duration: "04.35",
+  url: "audio/Dhamma14.mp3"
+},
+{
+  id: 15,
+  title: "บทสวดสรรเสริญพระรัตนตรัย",
+  subtitle: "บทสวดถวายความเคารพและสรรเสริญพระพุทธ พระธรรม พระสงฆ์",
+  duration: "07.26",
+  url: "audio/Dhamma15.mp3"
+},
+{
+  id: 16,
+  title: "บทพระปาฏิโมกข์ (โดย พระมหาเปล่ง ธมฺมโสภโณ)",
+  subtitle: "พระปาฏิโมกข์ บทสวดแสดงพระวินัยของพระภิกษุ",
+  duration: "39.02",
+  url: "audio/Dhamma23.mp3"
+}
 ];
 
 let currentAudioIndex = -1;
@@ -1303,7 +1381,6 @@ let isLooping = false;
 let playbackSpeeds = [1.0, 1.25, 1.5, 0.75];
 let speedIndex = 0;
 
-// Initial Setup on Window Load
 window.addEventListener('load', function() {
     buildTOC();
     updateBadge();
@@ -1317,38 +1394,86 @@ window.addEventListener('hashchange', function() {
     checkHashNavigation();
 });
 
-// --- Tab Navigation System ---
-function switchMainTab(tab) {
+// Centralized View Switcher (Prevents Blank Screen Bug)
+function showView(targetView) {
     const bookView = document.getElementById('reader-view');
     const indexView = document.getElementById('index-view');
     const audioView = document.getElementById('audio-view');
     const navBtnBook = document.getElementById('navBtnBook');
     const navBtnAudio = document.getElementById('navBtnAudio');
+    const toc = document.getElementById("toc");
 
-    // Reset view visibility
+    // Close TOC drawer if open
+    if (toc) toc.classList.remove("show");
+
+    // Clear active classes from all views
     indexView.classList.remove('active');
     bookView.classList.remove('active');
     audioView.classList.remove('active');
     navBtnBook.classList.remove('active');
     navBtnAudio.classList.remove('active');
 
-    if (tab === 'book') {
-        if (window.location.hash.startsWith('#slide-')) {
-            bookView.classList.add('active');
-        } else {
-            indexView.classList.add('active');
-        }
+    if (targetView === 'index') {
+        indexView.classList.add('active');
         navBtnBook.classList.add('active');
         hideMiniPlayerIfInAudioTab(false);
-    } else if (tab === 'audio') {
+        if (window.location.hash) {
+            history.replaceState("", document.title, window.location.pathname + window.location.search);
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    } else if (targetView === 'reader') {
+        bookView.classList.add('active');
+        navBtnBook.classList.add('active');
+        hideMiniPlayerIfInAudioTab(false);
+        setTimeout(() => {
+            goSlide(currentReadingSlide);
+        }, 50);
+    } else if (targetView === 'audio') {
         audioView.classList.add('active');
         navBtnAudio.classList.add('active');
-        // When in Audio tab, we don't need mini player bar
         document.getElementById('miniPlayerBar').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'instant' });
     }
 }
 
-// --- Audio Player Logic ---
+// Bottom Bar and Header Navigation Handler
+function switchMainTab(tab) {
+    if (tab === 'book') {
+        const bookView = document.getElementById('reader-view');
+        const indexView = document.getElementById('index-view');
+        
+        // If currently in reader view -> Switch to Main Menu
+        if (bookView.classList.contains('active')) {
+            showView('index');
+        } 
+        // If currently in menu view -> Toggle back to reader view at remembered slide
+        else if (indexView.classList.contains('active')) {
+            showView('reader');
+            window.location.hash = `#slide-${currentReadingSlide}`;
+        } 
+        // If coming from audio view -> Switch to Index menu
+        else {
+            showView('index');
+        }
+    } else if (tab === 'audio') {
+        showView('audio');
+    }
+}
+
+function openReader(slideIndex = 0) {
+    currentReadingSlide = parseInt(slideIndex) || 0;
+    window.location.hash = `#slide-${currentReadingSlide}`;
+    showView('reader');
+}
+
+function checkHashNavigation() {
+    if (window.location.hash.startsWith('#slide-')) {
+        const slideIndex = parseInt(window.location.hash.replace('#slide-', '')) || 0;
+        currentReadingSlide = slideIndex;
+        showView('reader');
+    }
+}
+
 function renderAudioList(filterText = '') {
     const container = document.getElementById('audioListContainer');
     container.innerHTML = '';
@@ -1395,7 +1520,6 @@ function playAudioAtIndex(index) {
     if (index < 0 || index >= chantingPlaylist.length) return;
     
     if (currentAudioIndex === index && mainAudio.src) {
-        // Toggle play/pause if clicking the same track
         togglePlayPause();
         return;
     }
@@ -1494,7 +1618,6 @@ function updateAudioPlayerUI() {
         trackDisc.classList.add('playing');
         miniDisc.classList.add('playing');
 
-        // Show mini player if playing outside audio view
         if (!audioTabActive) {
             miniPlayerBar.style.display = 'flex';
         }
@@ -1549,7 +1672,6 @@ function closeMiniPlayer() {
     document.getElementById('miniPlayerBar').style.display = 'none';
 }
 
-// --- Lazy Loading Logic ---
 function loadImageForSlide(index) {
     const slide = document.getElementById(`slide-${index}`);
     if (!slide) return;
@@ -1562,7 +1684,7 @@ function loadImageForSlide(index) {
 
 function preloadSurroundingSlides(currentIndex) {
     currentIndex = parseInt(currentIndex) || 0;
-    const range = 2; // Preload current slide +/- 2 slides
+    const range = 2;
     for (let i = currentIndex - range; i <= currentIndex + range; i++) {
         if (i >= 0 && i < totalSlides) {
             loadImageForSlide(i);
@@ -1594,7 +1716,6 @@ function initLazyLoading() {
     }
 }
 
-// --- Toggle FABs (Hide/Restore AI & Check-in) ---
 function toggleFABs() {
     const fabContainer = document.getElementById('fabContainer');
     const restoreBtn = document.getElementById('fabRestoreBtn');
@@ -1608,37 +1729,7 @@ function toggleFABs() {
     }
 }
 
-// --- View Router Logic ---
-function openReader(slideIndex = 0) {
-    document.getElementById('index-view').classList.remove('active');
-    document.getElementById('audio-view').classList.remove('active');
-    document.getElementById('reader-view').classList.add('active');
-    
-    document.getElementById('navBtnBook').classList.add('active');
-    document.getElementById('navBtnAudio').classList.remove('active');
-
-    preloadSurroundingSlides(slideIndex);
-    window.location.hash = `#slide-${slideIndex}`;
-    setTimeout(() => {
-        goSlide(slideIndex);
-    }, 50);
-
-    hideMiniPlayerIfInAudioTab(false);
-}
-
-function openIndex() {
-    switchMainTab('book');
-    history.pushState("", document.title, window.location.pathname + window.location.search);
-}
-
-function checkHashNavigation() {
-    if (window.location.hash.startsWith('#slide-')) {
-        const slideIndex = parseInt(window.location.hash.replace('#slide-', '')) || 0;
-        openReader(slideIndex);
-    }
-}
-
-// --- Search Function ---
+// Search Filter
 document.getElementById('searchInput').addEventListener('keyup', function() {
   let filter = this.value.toLowerCase();
   let cards = document.querySelectorAll('.cards .card');
@@ -1654,7 +1745,7 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
   });
 });
 
-// --- Daily Check-in System ---
+// Daily Check-in System
 const CHECKIN_KEY_DATE = 'lastCheckInDate';
 const CHECKIN_KEY_COUNT = 'checkInCount';
 
@@ -1689,7 +1780,7 @@ function dailyCheckIn() {
     }
 }
 
-// --- AI Chatbot System ---
+// AI Chatbot
 function toggleChat() {
     const chat = document.getElementById('chatContainer');
     const fabContainer = document.getElementById('fabContainer');
@@ -1764,7 +1855,6 @@ function updateMessage(id, text) {
     }
 }
 
-// --- Custom Modal Helper ---
 function showModal(title, message, icon, isReward = false) {
     document.getElementById('modalTitle').innerText = title;
     document.getElementById('modalMessage').innerHTML = message;
@@ -1777,14 +1867,12 @@ function closeModal() {
     document.getElementById('modalOverlay').style.display = 'none';
 }
 
-// --- Ebook Reader Logic ---
 function toggleLayout() {
     document.body.classList.toggle('vertical-read');
     const btn = document.getElementById('layoutBtn');
     const isVertical = document.body.classList.contains('vertical-read');
     btn.innerText = isVertical ? "📖 แนวนอน" : "📜 แนวตั้ง";
-    const currentIndex = parseInt(document.getElementById('pageSelect').value) || 0;
-    setTimeout(() => goSlide(currentIndex), 100);
+    setTimeout(() => goSlide(currentReadingSlide), 100);
 }
 
 function next() { slider.scrollBy({ left: window.innerWidth, behavior: "smooth" }); }
@@ -1795,6 +1883,7 @@ function goSlide(index) {
     const slides = document.querySelectorAll('.slide');
     if (index < 0 || index >= slides.length) return;
 
+    currentReadingSlide = index;
     preloadSurroundingSlides(index);
 
     if (document.body.classList.contains('vertical-read')) {
@@ -1808,6 +1897,7 @@ function goSlide(index) {
 
 function updatePageUI(index) {
     index = Math.round(index);
+    currentReadingSlide = index;
     const sliderInput = document.getElementById("pageSlider");
     const pageNum = document.getElementById("pageNum");
     const pageSelect = document.getElementById("pageSelect");
@@ -1831,11 +1921,11 @@ slider.addEventListener('scroll', () => {
     } else {
         current = Math.round(slider.scrollLeft / window.innerWidth);
     }
+    currentReadingSlide = current;
     preloadSurroundingSlides(current);
     updatePageUI(current);
 });
 
-// --- Table of Contents (TOC) Builder ---
 function buildTOC() {
     const toc = document.getElementById("toc");
     toc.innerHTML = '';
@@ -1861,7 +1951,6 @@ function buildTOC() {
         toc.appendChild(wrapper);
     });
 
-    // Update Control Select & Range
     const select = document.getElementById("pageSelect");
     const sliderInput = document.getElementById("pageSlider");
     select.innerHTML = '';
